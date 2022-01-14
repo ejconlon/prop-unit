@@ -13,7 +13,7 @@ testAsUnit = testUnit "as unit" $ do
 testAsProp :: TestLimit -> TestTree
 testAsProp lim = testProp "as gen" lim $ do
   x <- forAll (Gen.int (Range.constant 1 10))
-  (abs x) * (abs x) === x * x
+  abs x * abs x === x * x
 
 main :: IO ()
 main = testMain $ \lim ->
