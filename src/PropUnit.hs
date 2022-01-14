@@ -1,5 +1,6 @@
 module PropUnit
-  ( Gen
+  ( DependencyType (..)
+  , Gen
   , MonadTest
   , Property
   , PropertyT
@@ -9,6 +10,7 @@ module PropUnit
   , TestTree
   , (===)
   , (/==)
+  , after
   , assert
   , forAll
   , testProp
@@ -24,7 +26,7 @@ import Hedgehog (DiscardLimit, Gen, MonadTest, Property, PropertyT, Range, Shrin
                  assert, forAll, property, withDiscards, withRetries, withShrinks, withTests, (/==), (===))
 import System.Environment (lookupEnv, setEnv)
 import System.IO (BufferMode (..), hSetBuffering, stderr, stdout)
-import Test.Tasty (TestName, TestTree, defaultMain, testGroup)
+import Test.Tasty (DependencyType (..), TestName, TestTree, after, defaultMain, testGroup)
 import Test.Tasty.Hedgehog (testProperty)
 
 unitProperty :: PropertyT IO () -> Property
