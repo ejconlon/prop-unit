@@ -1,7 +1,9 @@
 module PropUnit
-  ( MonadTest
+  ( Gen
+  , MonadTest
   , Property
   , PropertyT
+  , Range
   , TestLimit
   , TestName
   , TestTree
@@ -18,8 +20,8 @@ module PropUnit
   ) where
 
 import Control.Monad (when)
-import Hedgehog (DiscardLimit, MonadTest, Property, PropertyT, ShrinkLimit, ShrinkRetries, TestLimit, assert, forAll,
-                 property, withDiscards, withRetries, withShrinks, withTests, (/==), (===))
+import Hedgehog (DiscardLimit, Gen, MonadTest, Property, PropertyT, Range, ShrinkLimit, ShrinkRetries, TestLimit,
+                 assert, forAll, property, withDiscards, withRetries, withShrinks, withTests, (/==), (===))
 import System.Environment (lookupEnv, setEnv)
 import System.IO (BufferMode (..), hSetBuffering, stderr, stdout)
 import Test.Tasty (TestName, TestTree, defaultMain, testGroup)
