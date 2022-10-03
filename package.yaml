@@ -5,8 +5,8 @@ license:             BSD3
 author:              "Eric Conlon"
 maintainer:          "ejconlon@gmail.com"
 copyright:           "(c) 2022 Eric Conlon"
-# category:            Undefined
-# synopsis:            Undefined
+category:            Testing
+synopsis:            Conveniences for using Hedgehog as a unit test runner
 
 extra-source-files:
 - README.md

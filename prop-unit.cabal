@@ -6,7 +6,9 @@ cabal-version: 1.12
 
 name:           prop-unit
 version:        0.1.0
+synopsis:       Conveniences for using Hedgehog as a unit test runner
 description:    Please see the README on GitHub at <https://github.com/ejconlon/prop-unit#readme>
+category:       Testing
 homepage:       https://github.com/ejconlon/prop-unit#readme
 bug-reports:    https://github.com/ejconlon/prop-unit/issues
 author:         Eric Conlon
