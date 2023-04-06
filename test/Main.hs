@@ -6,9 +6,9 @@ import PropUnit (TestLimit, TestTree, forAll, testGroup, testMain, testProp, tes
 
 testAsUnit :: TestTree
 testAsUnit = testUnit "as unit" $ do
-    let actual = (1 + 1) :: Int
-        expected = 2 :: Int
-    actual === expected
+  let actual = (1 + 1) :: Int
+      expected = 2 :: Int
+  actual === expected
 
 testAsProp :: TestLimit -> TestTree
 testAsProp lim = testProp "as gen" lim $ do
@@ -17,7 +17,8 @@ testAsProp lim = testProp "as gen" lim $ do
 
 main :: IO ()
 main = testMain $ \lim ->
-  testGroup "PropUnit"
+  testGroup
+    "PropUnit"
     [ testAsUnit
     , testAsProp lim
     ]

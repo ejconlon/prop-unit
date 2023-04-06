@@ -20,11 +20,30 @@ module PropUnit
   , testGroup
   , testMain
   , withResource
-  ) where
+  )
+where
 
 import Control.Monad (when)
-import Hedgehog (DiscardLimit, Gen, MonadTest, Property, PropertyT, Range, ShrinkLimit, ShrinkRetries, TestLimit,
-                 assert, forAll, property, withDiscards, withRetries, withShrinks, withTests, (/==), (===))
+import Hedgehog
+  ( DiscardLimit
+  , Gen
+  , MonadTest
+  , Property
+  , PropertyT
+  , Range
+  , ShrinkLimit
+  , ShrinkRetries
+  , TestLimit
+  , assert
+  , forAll
+  , property
+  , withDiscards
+  , withRetries
+  , withShrinks
+  , withTests
+  , (/==)
+  , (===)
+  )
 import System.Environment (lookupEnv, setEnv)
 import System.IO (BufferMode (..), hSetBuffering, stderr, stdout)
 import Test.Tasty (DependencyType (..), TestName, TestTree, after, defaultMain, testGroup, withResource)
@@ -32,11 +51,11 @@ import Test.Tasty.Hedgehog (testProperty)
 
 unitProperty :: PropertyT IO () -> Property
 unitProperty =
-  withTests (1 :: TestLimit) .
-  withDiscards (1 :: DiscardLimit) .
-  withShrinks (0 :: ShrinkLimit) .
-  withRetries (0 :: ShrinkRetries) .
-  property
+  withTests (1 :: TestLimit)
+    . withDiscards (1 :: DiscardLimit)
+    . withShrinks (0 :: ShrinkLimit)
+    . withRetries (0 :: ShrinkRetries)
+    . property
 
 testUnit :: TestName -> PropertyT IO () -> TestTree
 testUnit name = testProperty name . unitProperty
