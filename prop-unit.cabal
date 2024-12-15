@@ -5,7 +5,7 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           prop-unit
-version:        0.1.4
+version:        0.2.0
 synopsis:       Conveniences for using Hedgehog as a unit test runner
 description:    Please see the README on GitHub at <https://github.com/ejconlon/prop-unit#readme>
 category:       Testing
@@ -101,6 +101,7 @@ test-suite prop-unit-test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints -fno-warn-unused-top-binds -fwrite-ide-info -hiedir=.hie -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.12 && <5
+    , containers
     , hedgehog >=1.4 && <1.6
     , prop-unit
     , tasty
