@@ -5,7 +5,7 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           prop-unit
-version:        1.0.0
+version:        1.0.1
 synopsis:       Conveniences for using Hedgehog as a unit test runner
 description:    Please see the README on GitHub at <https://github.com/ejconlon/prop-unit#readme>
 category:       Testing

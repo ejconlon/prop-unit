@@ -9,6 +9,7 @@ module PropUnit
   , Range
   , TestLimit
   , TestName
+  , TestT
   , TestTree
   , (===)
   , (/==)
