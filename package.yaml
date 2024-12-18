@@ -1,5 +1,5 @@
 name:                prop-unit
-version:             0.2.0
+version:             1.0.0
 github:              "ejconlon/prop-unit"
 license:             BSD3
 author:              "Eric Conlon"
@@ -72,5 +72,3 @@ tests:
     dependencies:
     - prop-unit
     - containers
-    - tasty
-    - tasty-hunit

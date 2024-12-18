@@ -29,7 +29,7 @@ module PropUnit
   , genDefaultList
   , genDefaultString
   , genDefaultGeneric
-  , Std
+  , StdTag
   )
 where
 
@@ -51,9 +51,11 @@ import Hedgehog
   , ShrinkLimit
   , ShrinkRetries
   , TestLimit
+  , TestT
   , assert
   , forAll
   , property
+  , test
   , withDiscards
   , withRetries
   , withShrinks
@@ -68,15 +70,16 @@ import System.IO (BufferMode (..), hSetBuffering, stderr, stdout)
 import Test.Tasty (DependencyType (..), TestName, TestTree, after, defaultMain, testGroup, withResource)
 import Test.Tasty.Hedgehog (testProperty)
 
-unitProperty :: PropertyT IO () -> Property
+unitProperty :: TestT IO () -> Property
 unitProperty =
   withTests (1 :: TestLimit)
     . withDiscards (1 :: DiscardLimit)
     . withShrinks (0 :: ShrinkLimit)
     . withRetries (0 :: ShrinkRetries)
     . property
+    . test
 
-testUnit :: TestName -> PropertyT IO () -> TestTree
+testUnit :: TestName -> TestT IO () -> TestTree
 testUnit name = testProperty name . unitProperty
 
 testProp :: TestName -> TestLimit -> PropertyT IO () -> TestTree
@@ -199,49 +202,50 @@ genDefaultGeneric :: forall tag a. (Generic a, GGenDefault tag (Rep a)) => Proxy
 genDefaultGeneric _ = fmap (unViaGeneric @tag @a) (genDefault (Proxy @tag))
 
 -- | Type tag for these "standard" default generators.
--- You can use this tag directly or choose type-by-type with 'ViaTag'.
-data Std
+-- You can use this tag directly or choose type-by-type with 'genDefaultTag'.
+data StdTag
 
-instance GenDefault Std () where genDefault = genDefaultEnum
+instance GenDefault StdTag () where genDefault = genDefaultEnum
 
-instance GenDefault Std Bool where genDefault = genDefaultEnum
+instance GenDefault StdTag Bool where genDefault = genDefaultEnum
 
-instance GenDefault Std Char where genDefault = genDefaultEnum
+instance GenDefault StdTag Char where genDefault = genDefaultEnum
 
-instance GenDefault Std Int where genDefault = genDefaultIntegral
+instance GenDefault StdTag Int where genDefault = genDefaultIntegral
 
-instance GenDefault Std Int8 where genDefault = genDefaultIntegral
+instance GenDefault StdTag Int8 where genDefault = genDefaultIntegral
 
-instance GenDefault Std Int16 where genDefault = genDefaultIntegral
+instance GenDefault StdTag Int16 where genDefault = genDefaultIntegral
 
-instance GenDefault Std Int32 where genDefault = genDefaultIntegral
+instance GenDefault StdTag Int32 where genDefault = genDefaultIntegral
 
-instance GenDefault Std Int64 where genDefault = genDefaultIntegral
+instance GenDefault StdTag Int64 where genDefault = genDefaultIntegral
 
-instance GenDefault Std Word where genDefault = genDefaultIntegral
+instance GenDefault StdTag Word where genDefault = genDefaultIntegral
 
-instance GenDefault Std Word8 where genDefault = genDefaultIntegral
+instance GenDefault StdTag Word8 where genDefault = genDefaultIntegral
 
-instance GenDefault Std Word16 where genDefault = genDefaultIntegral
+instance GenDefault StdTag Word16 where genDefault = genDefaultIntegral
 
-instance GenDefault Std Word32 where genDefault = genDefaultIntegral
+instance GenDefault StdTag Word32 where genDefault = genDefaultIntegral
 
-instance GenDefault Std Word64 where genDefault = genDefaultIntegral
+instance GenDefault StdTag Word64 where genDefault = genDefaultIntegral
 
-instance (GenDefault Std a) => GenDefault Std (Maybe a) where genDefault = genDefaultGeneric
+instance (GenDefault StdTag a) => GenDefault StdTag (Maybe a) where genDefault = genDefaultGeneric
 
-instance (GenDefault Std a, GenDefault Std b) => GenDefault Std (Either a b) where genDefault = genDefaultGeneric
-
-instance (GenDefault Std a, GenDefault Std b) => GenDefault Std (a, b) where genDefault = genDefaultGeneric
-
-instance (GenDefault Std a, GenDefault Std b, GenDefault Std c) => GenDefault Std (a, b, c) where
+instance (GenDefault StdTag a, GenDefault StdTag b) => GenDefault StdTag (Either a b) where
   genDefault = genDefaultGeneric
 
-instance (GenDefault Std a, GenDefault Std b, GenDefault Std c, GenDefault Std d) => GenDefault Std (a, b, c, d) where
+instance (GenDefault StdTag a, GenDefault StdTag b) => GenDefault StdTag (a, b) where genDefault = genDefaultGeneric
+
+instance (GenDefault StdTag a, GenDefault StdTag b, GenDefault StdTag c) => GenDefault StdTag (a, b, c) where
+  genDefault = genDefaultGeneric
+
+instance (GenDefault StdTag a, GenDefault StdTag b, GenDefault StdTag c, GenDefault StdTag d) => GenDefault StdTag (a, b, c, d) where
   genDefault = genDefaultGeneric
 
 instance
-  (GenDefault Std a, GenDefault Std b, GenDefault Std c, GenDefault Std d, GenDefault Std e)
-  => GenDefault Std (a, b, c, d, e)
+  (GenDefault StdTag a, GenDefault StdTag b, GenDefault StdTag c, GenDefault StdTag d, GenDefault StdTag e)
+  => GenDefault StdTag (a, b, c, d, e)
   where
   genDefault = genDefaultGeneric

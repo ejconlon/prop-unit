@@ -8,12 +8,9 @@ import Data.Proxy (Proxy (..))
 import qualified Data.Set as Set
 import GHC.Exts (IsList, IsString)
 import GHC.Generics (Generic)
-import Hedgehog (Gen)
-import qualified Hedgehog.Gen as Gen
-import qualified Hedgehog.Range as Range
 import PropUnit
   ( GenDefault (..)
-  , Std
+  , StdTag
   , TestLimit
   , TestTree
   , assert
@@ -29,6 +26,9 @@ import PropUnit
   , testUnit
   , (===)
   )
+import PropUnit.Hedgehog (Gen)
+import qualified PropUnit.Hedgehog.Gen as Gen
+import qualified PropUnit.Hedgehog.Range as Range
 
 testAsUnit :: TestTree
 testAsUnit = testUnit "as unit" $ do
@@ -51,9 +51,9 @@ testBasic lim =
 
 data Tag
 
-instance GenDefault Tag Int where genDefault = genDefaultTag (Proxy @Std)
+instance GenDefault Tag Int where genDefault = genDefaultTag (Proxy @StdTag)
 
-instance GenDefault Tag Char where genDefault = genDefaultTag (Proxy @Std)
+instance GenDefault Tag Char where genDefault = genDefaultTag (Proxy @StdTag)
 
 newtype AList a = AList [a]
   deriving newtype (Eq, Ord, Show, IsList)
