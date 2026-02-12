@@ -1,5 +1,5 @@
 name:                prop-unit
-version:             1.0.1
+version:             1.0.2
 github:              "ejconlon/prop-unit"
 license:             BSD3
 author:              "Eric Conlon"
@@ -15,13 +15,14 @@ description: Please see the README on GitHub at <https://github.com/ejconlon/pro
 
 dependencies:
 - base >= 4.12 && < 5
-- hedgehog >= 1.4 && < 1.6
+- hedgehog >= 1.4 && < 1.8
 - tasty >= 1.4 && < 1.6
-- tasty-hedgehog >= 1.4 && < 1.5
+- tasty-hedgehog >= 1.4 && < 1.6
 
 default-extensions:
 - BangPatterns
 - ConstraintKinds
+- DataKinds
 - DeriveAnyClass
 - DeriveFunctor
 - DeriveFoldable
